@@ -3,15 +3,9 @@ package lk.ijse.demo.bo.custom.impl;
 import lk.ijse.demo.bo.custom.SalesOrderBO;
 import lk.ijse.demo.dao.CrudUtil;
 import lk.ijse.demo.dao.DAOFactory;
-import lk.ijse.demo.dao.custom.CustomerDAO;
 import lk.ijse.demo.dao.custom.SalesOrderDAO;
 import lk.ijse.demo.db.DBConnection;
-import lk.ijse.demo.dto.ItemDTO;
-import lk.ijse.demo.dto.PaymentDTO;
-import lk.ijse.demo.dto.SalesOrderDTO;
 import lk.ijse.demo.dto.SalesOrderItemDTO;
-import lk.ijse.demo.entity.Item;
-import lk.ijse.demo.entity.Payment;
 import lk.ijse.demo.entity.SalesOrder;
 import lk.ijse.demo.entity.SalesOrderItem;
 

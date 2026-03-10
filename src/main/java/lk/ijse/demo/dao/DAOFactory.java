@@ -12,7 +12,7 @@ public class DAOFactory {
         return daoFactory==null?daoFactory=new DAOFactory():daoFactory;
     }
     public enum DAOType{
-        CATEGORY,CASTOMER,DELIVERY,ITEM,PAYMENT,SALESORDER,SALERSORDERITEM,SUPPLIER
+        CATEGORY,CASTOMER,DELIVERY,ITEM,PAYMENT,SALESORDER,SALERSORDERITEM, DASHBOARD, SUPPLIER
     }
     public SuperDAO getDAO(DAOType type){
         switch (type){

@@ -5,6 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.demo.bo.BOFactory;
+import lk.ijse.demo.bo.custom.CustomerBO;
+import lk.ijse.demo.bo.custom.DashboardBO;
+import lk.ijse.demo.dao.custom.DashboardDAO;
 import lk.ijse.demo.dto.SalesOrderDTO;
 import lk.ijse.demo.model.DashboardModel;
 import lk.ijse.demo.model.SalesOrderModel;
@@ -24,8 +28,8 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<SalesOrderDTO, String> colCustomer, colDate, colType, colStatus;
     @FXML private TableColumn<SalesOrderDTO, Double> colTotal;
 
-    private final DashboardModel dashboardModel = new DashboardModel();
-    private final SalesOrderModel salesOrderModel = new SalesOrderModel();
+    private DashboardBO customerBO = (DashboardBO) BOFactory.getInstance().getBO(BOFactory.BOType.DASHBOARD);
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
