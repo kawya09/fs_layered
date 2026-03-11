@@ -83,4 +83,10 @@ return CrudUtil.execute("UPDATE payments SET status=? , WHERE payment_id=? ",ent
         }
         return list;
     }
+
+    public double getTotalRevenue() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COALESCE(SUM(amount),0) AS total FROM payments WHERE status='completed'");
+        if (rs.next()) return rs.getDouble("total");
+        return 0;
+    }
 }

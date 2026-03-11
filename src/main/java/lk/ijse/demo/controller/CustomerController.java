@@ -125,7 +125,7 @@ public class CustomerController implements Initializable {
             if (keyword.isEmpty()) {
                 loadCustomers();
             } else {
-                tblCustomers.setItems(FXCollections.observableArrayList(customerBO.searchCustomers(keyword)));
+                tblCustomers.setItems(FXCollections.observableArrayList(customerBO.search(keyword)));
             }
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());

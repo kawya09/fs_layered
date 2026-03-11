@@ -13,9 +13,9 @@ import lk.ijse.demo.dto.CategoryDTO;
 import lk.ijse.demo.dto.ItemDTO;
 import lk.ijse.demo.dto.SupplierDTO;
 import lk.ijse.demo.entity.Item;
-import lk.ijse.demo.model.CategoryModel;
-import lk.ijse.demo.model.ItemModel;
-import lk.ijse.demo.model.SupplierModel;
+//import lk.ijse.demo.model.CategoryModel;
+//import lk.ijse.demo.model.ItemModel;
+//import lk.ijse.demo.model.SupplierModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -128,7 +128,7 @@ public class ItemController implements Initializable {
         try {
             String kw = txtSearch.getText().trim();
             tblItems.setItems(FXCollections.observableArrayList(
-                    kw.isEmpty() ? itemModel.getAllItems() : itemModel.searchItems(kw)));
+                    kw.isEmpty() ? itemBO.getAllItems() : itemBO.searchItems(kw)));
         } catch (SQLException e) {
             showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }

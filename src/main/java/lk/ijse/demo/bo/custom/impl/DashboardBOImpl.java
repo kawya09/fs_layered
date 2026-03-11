@@ -3,48 +3,57 @@ package lk.ijse.demo.bo.custom.impl;
 import lk.ijse.demo.bo.custom.DashboardBO;
 import lk.ijse.demo.dao.CrudUtil;
 import lk.ijse.demo.dao.DAOFactory;
-import lk.ijse.demo.dao.custom.CustomerDAO;
-import lk.ijse.demo.dao.custom.DashboardDAO;
+import lk.ijse.demo.dao.custom.*;
+import lk.ijse.demo.dto.CustomerDTO;
+import lk.ijse.demo.dto.SalesOrderDTO;
+import lk.ijse.demo.entity.Customer;
+import lk.ijse.demo.entity.SalesOrder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardBOImpl implements DashboardBO {
-    DashboardDAO customerDAO = (DashboardDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DASHBOARD) ;
+        CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.CASTOMER);
+        ItemDAO itemDAO = (ItemDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ITEM);
+        SalesOrderDAO salesOrderDAO = (SalesOrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.SALESORDER);
+        PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
     public int getTotalCustomers() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM customers");
-        if (rs.next()) return rs.getInt("cnt");
-        return 0;
+        return customerDAO.getTotalCustomers();
     }
 
     public int getTotalItems() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM items");
-        if (rs.next()) return rs.getInt("cnt");
-        return 0;
+        return itemDAO.getTotalItems();
     }
-
     public int getTotalOrders() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM sales_orders");
-        if (rs.next()) return rs.getInt("cnt");
-        return 0;
-    }
-
-    public double getTotalRevenue() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COALESCE(SUM(amount),0) AS total FROM payments WHERE status='completed'");
-        if (rs.next()) return rs.getDouble("total");
-        return 0;
+        return SalesOrderDAO.getTotalOrders();
     }
 
     public int getPendingOrders() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM sales_orders WHERE status='pending'");
-        if (rs.next()) return rs.getInt("cnt");
-        return 0;
+       return salesOrderDAO.getPendingOrders();
+    }
+    public int getLowStockCount() throws SQLException {
+        return itemDAO.getLowStockCount();
     }
 
-    public int getLowStockCount() throws SQLException {
-        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM items WHERE stock_quantity < 5");
-        if (rs.next()) return rs.getInt("cnt");
-        return 0;
+    public double getTotalRevenue() throws SQLException {
+       return paymentDAO.getTotalRevenue();
     }
-}
+
+
+        public List<SalesOrderDTO> getAllOrders() throws SQLException {
+            List<SalesOrder> entities =salesOrderDAO.getAll();
+            List<SalesOrderDTO> list = new ArrayList<>();
+
+            for(SalesOrder entity : entities){
+                list.add(new SalesOrderDTO(entity.getCustomerId(), entity.getOrderId(),entity.getOrderDate(),entity.getSaleType(),entity.getStatus(),entity.getNotes()));
+            }
+
+            return list;
+        }
+    }
+
+
+

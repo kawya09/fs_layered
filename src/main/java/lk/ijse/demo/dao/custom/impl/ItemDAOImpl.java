@@ -90,4 +90,16 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return list;
     }
+
+    public int getTotalItems() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM items");
+        if (rs.next()) return rs.getInt("cnt");
+        return 0;
+    }
+
+    public int getLowStockCount() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM items WHERE stock_quantity < 5");
+        if (rs.next()) return rs.getInt("cnt");
+        return 0;
+    }
 }

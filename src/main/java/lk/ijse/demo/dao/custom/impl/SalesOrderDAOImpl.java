@@ -137,4 +137,16 @@ public class SalesOrderDAOImpl implements SalesOrderDAO {
         }
         return list;
     }
+
+    public int getTotalOrders() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM sales_orders");
+        if (rs.next()) return rs.getInt("cnt");
+        return 0;
+    }
+
+    public int getPendingOrders() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM sales_orders WHERE status='pending'");
+        if (rs.next()) return rs.getInt("cnt");
+        return 0;
+    }
 }

@@ -66,4 +66,11 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return list;
     }
+
+    @Override
+    public int getTotalCustomers() throws SQLException {
+        ResultSet rs = CrudUtil.execute("SELECT COUNT(*) AS cnt FROM customers");
+        if (rs.next()) return rs.getInt("cnt");
+        return 0;
+    }
 }
